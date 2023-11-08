@@ -1,0 +1,103 @@
+<html>
+
+<head>
+    <title>Appointment Booking</title>
+
+    <meta charset="UTF-8">
+    <!-- Include the viewport meta element for responsive design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Include Flatpickr styles from the absolute path -->
+    <link rel="stylesheet" href="/node_modules/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+    <!-- Input field for date and time selection -->
+    <input type="text" id="appointment-date-time" placeholder="Choose a date and time">
+
+    <!-- Include the Flatpickr JavaScript library from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.js"></script>
+
+    <!-- Include Flatpickr initialization code in a script tag -->
+    <script>
+        flatpickr("#appointment-date-time", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+        });
+    </script>
+
+    <!-- Create a form for booking an appointment -->
+    
+
+        <form id="appointment-form">
+            <label for="patientName">Patient Name:</label>
+            <input type="text" id="patientName" name="patientName" required>
+          
+            <!-- Add a dropdown/select input for doctor's name -->
+            <label for="doctorName">Doctor Name:</label>
+            <select id="doctorName" name="doctorName" required>
+              <option value="">Select a doctor</option>
+            </select>
+          
+          
+        <button type="submit">Book Appointment</button>
+    </form>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const form = document.getElementById("appointment-form");
+          const doctorSelect = document.getElementById("doctorName");
+      
+          // Fetch doctors from the server and populate the dropdown
+          fetch('/doctors')
+            .then((response) => response.json())
+            .then((doctors) => {
+              doctors.forEach((doctor) => {
+                const option = document.createElement("option");
+                option.value = doctor.name; // Replace with the actual field name in your Doctor model
+                option.textContent = doctor.name;
+                doctorSelect.appendChild(option);
+              });
+            });
+      
+        //   // Handle form submission as previously mentioned
+        //   form.addEventListener("submit", async (event) => {
+        //     // ... (form submission logic)
+        //   });
+        // });
+      
+      
+
+    
+    
+       form.addEventListener("submit", async (event) => {
+            // ... (form submission logic)
+            const form = document.getElementById("appointment-form");
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault(); // Prevent the form from submitting
+
+                const dateInput = document.getElementById("appointment-date-time");
+                const selectedDate = dateInput.value;
+
+                // Send the selectedDate to your server
+                const response = await fetch("/book-appointment", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ date: selectedDate }),
+                });
+
+                if (response.ok) {
+                    // Handle success, e.g., show a success message
+                    console.log("Appointment booked successfully!");
+                } else {
+                    // Handle errors, e.g., display an error message
+                    console.error("Error booking appointment");
+                }
+            });
+        });
+    });
+    </script>
+</body>
+
+</html>

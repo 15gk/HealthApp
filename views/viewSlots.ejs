@@ -16,7 +16,8 @@
                 <option value="<%= slot._id %>"><%= slot.startTime %> - <%= slot.endTime %></option>
             <% } %>
         </select>
-       
+        <input type="hidden" name="speciality" value="<%= speciality %>">
+        <input type="hidden" name="doctorId" value="<%= doctorId %>">
         <button type="submit">Next</button>
     </form>
 </body>

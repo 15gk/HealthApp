@@ -21,9 +21,10 @@
                 <option value=<%=doctors[i].doctorId%>><%= doctors[i].doctorName %></option>
             <% } %>
         </select>
-        
+          <input type="hidden" name="speciality" value="<%= speciality %>">
         <button type="submit">Next</button>
     </form>
 </body>
 </html>
+
 

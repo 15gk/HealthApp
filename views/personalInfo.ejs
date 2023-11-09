@@ -17,8 +17,14 @@
         <input type="text" name="email" id="email" required><br>
         <label for="address">Address:</label>
         <input type="text" name="address" id="address" required><br>
-         
-        <input   name="timeSlot" value="<%= timeSlot %>">
+        <input type="hidden" name="speciality" value="<%= speciality %>">
+        <input type="hidden" name="doctorId" value="<%= doctorId %>">
+        <input type="hidden" name="timeSlot" value="<%= timeSlot %>">
+        <input type="hidden" name="startTime" value="<%=filterSlot.startTime%>">
+        <input  type="hidden" name="endTime" value="<%=filterSlot.endTime%>">
+        <input type="hidden" name="date" value="<%=filterSlot.date%>">
+        <input  type="hidden" name="status" value="<%=filterSlot.status%>">
+ 
         <button type="submit">Submit Appointment</button>
     </form>
 </body>

@@ -8,6 +8,7 @@ var appointments = require('../resources/appointments');
 var appoint=require('../resources/appoint')
 
 router.get('/viewAppoint', function(req, res, next) {
+    
     res.render('viewAppoint', { title: 'Slots', appointList:appoint });
   });
 router.get('/choose-speciality', function (req, res, next) {
@@ -20,12 +21,12 @@ router.get('/choose-speciality', function (req, res, next) {
 // Choose Doctor
 router.post('/choose-doctor', function (req, res, next) {
     console.log(req.body);
-    const specialty= req.body.speciality
+    const speciality= req.body.speciality
 
-    filteredDoctors=doctors.filter(doctor => doctor.speciality === specialty);
+    filteredDoctors=doctors.filter(doctor => doctor.speciality === speciality);
      console.log(filteredDoctors);
     // const filteredDoctors = doctors.filter(doctor => doctor.speciality === speciality);
-    res.render('choose-doc', { title: 'Choose Doctor', doctors:filteredDoctors});
+    res.render('choose-doc', { title: 'Choose Doctor', doctors:filteredDoctors,speciality:speciality});
 });
 
 // View Slots
@@ -36,17 +37,17 @@ router.post('/view-slots', function (req, res, next) {
     // console.log(slots.doctorId1)
     const filteredSlots = slots.filter(slot => (slot.doctorId === doctorId1 && slot.status === 'available' ));
     console.log(filteredSlots)
-    res.render('viewSlots', { title: 'View Slots', slots: filteredSlots});
+    res.render('viewSlots', { title: 'View Slots', slots: filteredSlots,speciality:req.body.speciality,doctorId:doctorId1});
 });
 
 // Personal Information
 router.post('/personalInfo', function (req, res, next) {
     console.log(req.body)
     const timeSlot = req.body.timeSlot;
-    
+    const filterSlot= slots.find(slot => (slot._id===timeSlot));
     // appoint.push({...req.body,id:`00${appoint.length+1}`})
     
-    res.render('personalInfo', { title: 'Personal Information',timeSlot:timeSlot});
+    res.render('personalInfo', { title: 'Personal Information',speciality:req.body.speciality,doctorId:req.body.doctorId,timeSlot:timeSlot,filterSlot:filterSlot});
 });
 
 // Appointment Details

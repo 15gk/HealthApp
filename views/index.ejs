@@ -20,6 +20,7 @@
     <h1><%= title %></h1>
    
     <a class="btb btn-success" href="/slots/add">Add Slot</a>
+    <a href="/allocates/choose-speciality" class="card-link" action="">Add appointment</a>
     <div class="row">
       <%slotList.forEach(function(slot){%>
       <div class="card" style="width: 20rem; margin: 8px;">
@@ -34,6 +35,7 @@
       <h6 class="card-subtitle mb-2 text-muted">Status: <%=slot.status%></h6>
       <!-- <a href="/slots/edit/<%=slot._id%>" class="card-link">Edit</a> -->
       <a href="/slots/delete/<%=slot._id%>" class="card-link" action="">Delete</a>
+      
       </div>
       </div>
       <%})%>

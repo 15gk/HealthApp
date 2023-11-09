@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Booking</title>
+    <style>
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Appointment Booking</h1>
+
+    <form id="appointmentForm" onsubmit="submitForm(); return false;">
+
+        <!-- Choose Speciality -->
+        <label for="speciality">Choose Speciality:</label>
+        <select id="speciality" onchange="updateDoctors()">
+            <option value="Cardiology">Cardiology</option>
+            <option value="Neurology">Neurology</option>
+            <!-- Add other specialities as needed -->
+        </select>
+
+        <!-- List of Doctors -->
+        <label for="doctor">Choose Doctor:</label>
+        <select id="doctor" onchange="updateTimeSlots()"></select>
+
+        <!-- Time Slots -->
+        <label for="timeSlot">Choose Time Slot:</label>
+        <select id="timeSlot"></select>
+
+        <!-- Patient Information -->
+        <label for="patientName">Patient Name:</label>
+        <input type="text" id="patientName" required>
+
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="text" id="phoneNumber" required>
+
+        <button type="submit">Submit Appointment</button>
+    </form>
+
+    <script>
+        // Replace with your actual data
+        const doctors = [
+            { doctorId: "doc-001", doctorName: "Dr. Smith", speciality: "Cardiology" },
+            { doctorId: "doc-002", doctorName: "Dr. Johnson", speciality: "Neurology" },
+            // Add other doctors as needed
+        ];
+
+        function updateDoctors() {
+            const speciality = document.getElementById("speciality").value;
+            const doctorDropdown = document.getElementById("doctor");
+
+            // Clear previous options
+            doctorDropdown.innerHTML = "";
+
+            // Filter doctors based on selected speciality
+            const filteredDoctors = doctors.filter(doctor => doctor.speciality === speciality);
+
+            // Add doctors to the dropdown
+            filteredDoctors.forEach(doctor => {
+                const option = document.createElement("option");
+                option.value = doctor.doctorId;
+                option.text = doctor.doctorName;
+                doctorDropdown.add(option);
+            });
+
+            // Update time slots when speciality changes
+            updateTimeSlots();
+        }
+
+        function updateTimeSlots() {
+            const doctorId = document.getElementById("doctor").value;
+            const timeSlotDropdown = document.getElementById("timeSlot");
+
+            // Replace with your logic to fetch time slots for the selected doctorId
+            const timeSlots = ["9:00 AM", "10:00 AM", "2:00 PM", "3:00 PM"];
+
+            // Clear previous options
+            timeSlotDropdown.innerHTML = "";
+
+            // Add time slots to the dropdown
+            timeSlots.forEach((slot, index) => {
+                const option = document.createElement("option");
+                option.value = index + 1; // Assign a unique slot ID
+                option.text = slot;
+                timeSlotDropdown.add(option);
+            });
+        }
+
+        function submitForm() {
+            // Replace with your logic to handle form submission
+            const patientName = document.getElementById("patientName").value;
+            const phoneNumber = document.getElementById("phoneNumber").value;
+            const speciality = document.getElementById("speciality").value;
+            const doctorId = document.getElementById("doctor").value;
+            const timeSlotId = document.getElementById("timeSlot").value;
+
+            // Replace with your logic to send data to the server
+            console.log("Patient Name:", patientName);
+            console.log("Phone Number:", phoneNumber);
+            console.log("Speciality:", speciality);
+            console.log("Doctor ID:", doctorId);
+            console.log("Time Slot ID:", timeSlotId);
+
+            // Clear form after submission
+            document.getElementById("appointmentForm").reset();
+        }
+    </script>
+</body>
+</html>

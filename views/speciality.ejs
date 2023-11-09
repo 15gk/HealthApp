@@ -1,0 +1,22 @@
+<!-- speciality.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Speciality</title>
+</head>
+<body>
+    <h1>Choose Speciality</h1>
+    <form action="/allocates/choose-doctor" method="post">
+        <label for="speciality">Select Speciality:</label>
+        <select name="speciality" id="speciality" required>
+            <!-- Render specialities dynamically -->
+            <% for (const speciality of specialities) { %>
+                <option value="<%= speciality %>"><%= speciality %></option>
+            <% } %>
+        </select>
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>

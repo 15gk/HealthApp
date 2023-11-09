@@ -1,0 +1,31 @@
+<!-- appointment-details.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Details</title>
+</head>
+<body>
+    <h1>Appointment Details</h1>
+    <h2>Current Appointment:</h2>
+    <p>Patient ID: <%= appointment.patientId %></p>
+    <p>Speciality: <%= appointment.speciality %></p>
+    <p>Doctor ID: <%= appointment.doctorId %></p>
+    <p>Slot ID: <%= appointment.slotId %></p>
+    <p>Start Time: <%= appointment.startTime %></p>
+    <p>End Time: <%= appointment.endTime %></p>
+    <p>Status: <%= appointment.status %></p>
+    <h2>Update Appointment Status:</h2>
+    <form action="/update-appointment" method="post">
+        <label for="newStatus">New Status:</label>
+        <select name="newStatus" id="newStatus" required>
+            <option value="Pending">Pending</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+        <input type="hidden" name="appointmentId" value="<%= appointment._id %>">
+        <button type="submit">Update Status</button>
+    </form>
+</body>
+</html>

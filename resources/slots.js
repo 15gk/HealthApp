@@ -36,8 +36,10 @@ let slots = [
       "endTime": "13:00",
       "status": "booked"
     }
-    // ... Assume more slots for different times and doctors
+   
   ];
   
   module.exports = slots;
   
+
+ 

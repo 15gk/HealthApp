@@ -7,9 +7,9 @@ var slots = require('../resources/slots');
 var appointments = require('../resources/appointments');
 var appoint=require('../resources/appoint')
 
-// router.get('/allocates', function(req, res, next) {
-//     res.render('allocates', { title: 'Slots', doctorList:doctors });
-//   });
+router.get('/viewAppoint', function(req, res, next) {
+    res.render('viewAppoint', { title: 'Slots', appointList:appoint });
+  });
 router.get('/choose-speciality', function (req, res, next) {
     const specialties = new Set();
     doctors.forEach(doctor => specialties.add(doctor.speciality));

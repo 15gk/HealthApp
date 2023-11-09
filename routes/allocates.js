@@ -21,6 +21,7 @@ router.get('/choose-speciality', function (req, res, next) {
 router.post('/choose-doctor', function (req, res, next) {
     console.log(req.body);
     const specialty= req.body.speciality
+
     filteredDoctors=doctors.filter(doctor => doctor.speciality === specialty);
      console.log(filteredDoctors);
     // const filteredDoctors = doctors.filter(doctor => doctor.speciality === speciality);
@@ -42,36 +43,20 @@ router.post('/view-slots', function (req, res, next) {
 router.post('/personalInfo', function (req, res, next) {
     console.log(req.body)
     const timeSlot = req.body.timeSlot;
-    // console.log
+    
+    // appoint.push({...req.body,id:`00${appoint.length+1}`})
+    
     res.render('personalInfo', { title: 'Personal Information',timeSlot:timeSlot});
 });
 
 // Appointment Details
-router.post('/appointment-details', function (req, res, next) {
-    const patientName = req.body.patientName;
-    const phoneNumber = req.body.phoneNumber;
-    const speciality = req.body.speciality;
-    const doctorId = req.body.doctor;
-    const timeSlotId = req.body.timeSlot;
+router.post('/appointdetails', function (req, res, next) {
 
-    // Replace with your logic to save appointment details
-    const appointment = {
-        patientId: generateUniqueId(), // Replace with your logic to generate a unique patientId
-        speciality: speciality,
-        doctorId: doctorId,
-        slotId: timeSlotId,
-        startTime: getTimeSlotById(timeSlotId).startTime,
-        endTime: getTimeSlotById(timeSlotId).endTime,
-        status: 'Pending', // Initial status
-    };
-
-    appointments.push(appointment);
-    res.render('appointmentDetails', { title: 'Appointment Details', appointment: appointment });
-});
-router.post('/save', function(req, res, next) {
-    appoint.push({...req.body,_id:`00${books.length+1}`})
+    appoint.push({...req.body,appoint_id:`00${appoint.length+1}`})
     res.redirect('/')
-  });
+    res.render('appointDetails', { title: 'Appointment Details', appoint: appoint });
+});
+
 // Update Appointment Status
 router.post('/update-appointment', function (req, res, next) {
     const appointmentId = req.body.appointmentId;
@@ -87,16 +72,16 @@ router.post('/update-appointment', function (req, res, next) {
 });
 
 // Replace with your logic to generate a unique patientId
-function generateUniqueId() {
-    // Implement your unique ID generation logic
-    return 'patient-' + Math.floor(Math.random() * 1000);
-}
+// function generateUniqueId() {
+//     // Implement your unique ID generation logic
+//     return 'patient-' + Math.floor(Math.random() * 1000);
+// }
 
-// Replace with your logic to get time slot details by ID
-function getTimeSlotById(timeSlotId) {
-    // Implement your logic to find and return the time slot by ID
-    return slots.find(slot => slot._id === timeSlotId);
-}
+// // Replace with your logic to get time slot details by ID
+// function getTimeSlotById(timeSlotId) {
+//     // Implement your logic to find and return the time slot by ID
+//     return slots.find(slot => slot._id === timeSlotId);
+// }
 
 module.exports = router;
 
@@ -123,3 +108,23 @@ module.exports = router;
 // <input type="hidden" name="doctor" value="<%= doctor %>"> */}
 // <!-- <input type="hidden" name="speciality" value="<%= speciality %>">
 // <input type="hidden" name="doctor" value="<%= doctor %>">
+
+
+
+
+// const patientName = req.body.patientName;
+// const phoneNumber = req.body.phoneNumber;
+// const speciality = req.body.speciality;
+// const doctorId = req.body.doctor;
+// const timeSlotId = req.body.timeSlot;
+
+// // Replace with your logic to save appointment details
+// const appointment = {
+//     patientId: generateUniqueId(), // Replace with your logic to generate a unique patientId
+//     speciality: speciality,
+//     doctorId: doctorId,
+//     slotId: timeSlotId,
+//     startTime: getTimeSlotById(timeSlotId).startTime,
+//     endTime: getTimeSlotById(timeSlotId).endTime,
+//     status: 'Pending', // Initial status
+// };

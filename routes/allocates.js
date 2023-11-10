@@ -4,13 +4,16 @@ var router = express.Router();
 var doctors = require('../resources/doctors');
 var users = require('../resources/users');
 var slots = require('../resources/slots');
-var appointments = require('../resources/appointments');
+// var appointments = require('../resources/appointments');
 var appoint=require('../resources/appoint')
 
-router.get('/viewAppoint', function(req, res, next) {
-    
-    res.render('viewAppoint', { title: 'Slots', appointList:appoint });
+var appointment = require('../models/appointment');
+
+router.get('/viewAppoint', async function(req, res, next) {
+    var appointDB = await appointment.find()
+    res.render('viewAppoint', { title: 'Slots', appointList:appointDB });
   });
+
 router.get('/choose-speciality', function (req, res, next) {
     const specialties = new Set();
     doctors.forEach(doctor => specialties.add(doctor.speciality));
@@ -20,25 +23,49 @@ router.get('/choose-speciality', function (req, res, next) {
 
 // Choose Doctor
 router.post('/choose-doctor', function (req, res, next) {
-    console.log(req.body);
+   
     const speciality= req.body.speciality
 
     filteredDoctors=doctors.filter(doctor => doctor.speciality === speciality);
-     console.log(filteredDoctors);
     // const filteredDoctors = doctors.filter(doctor => doctor.speciality === speciality);
     res.render('choose-doc', { title: 'Choose Doctor', doctors:filteredDoctors,speciality:speciality});
 });
 
 // View Slots
-router.post('/view-slots', function (req, res, next) {
-    console.log(req.body);
+ router.post('/view-slots', function (req, res, next) {
+     console.log(req.body);
     const doctorId1 = req.body.doctor;
-    console.log(doctorId1)
-    // console.log(slots.doctorId1)
-    const filteredSlots = slots.filter(slot => (slot.doctorId === doctorId1 && slot.status === 'available' ));
-    console.log(filteredSlots)
+     console.log(doctorId1)
+     // console.log(slots.doctorId1)
+     const filteredSlots = slots.filter(slot => (slot.doctorId === doctorId1 && slot.status === 'available' ));
+     console.log(filteredSlots)
     res.render('viewSlots', { title: 'View Slots', slots: filteredSlots,speciality:req.body.speciality,doctorId:doctorId1});
 });
+// router.post('/view-slots', function (req, res, next) {
+//     try {
+//         console.log(req.body);
+//         const doctorId1 = req.body.doctor;
+//         console.log(doctorId1);
+
+//         // Verify that 'slots' is correctly imported and contains data
+//         console.log(slots);
+
+//         const filteredSlots = slots.filter(slot => (slot.doctorId === doctorId1 && slot.status === 'available'));
+//         console.log(filteredSlots);
+
+//         res.render('viewSlots', {
+//             title: 'View Slots',
+//             slots: filteredSlots,
+//             speciality: req.body.speciality,
+//             doctorId: doctorId1
+//         });
+//     } catch (error) {
+//         // Handle any errors here
+//         console.error(error);
+//         res.render('error', { message: 'An error occurred.' });
+//     }
+// });
+
 
 // Personal Information
 router.post('/personalInfo', function (req, res, next) {
@@ -50,6 +77,11 @@ router.post('/personalInfo', function (req, res, next) {
     res.render('personalInfo', { title: 'Personal Information',speciality:req.body.speciality,doctorId:req.body.doctorId,timeSlot:timeSlot,filterSlot:filterSlot});
 });
 
+router.post('/save', async function (req, res) {   //book is added to database
+    console.log("this is body",req.body)
+    await appointment.insertMany([ { ...req.body,  }]) //no insertOne function..not built
+    res.redirect('/');
+  })
 // Appointment Details
 router.post('/appointdetails', function (req, res, next) {
 

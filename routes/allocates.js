@@ -20,20 +20,20 @@ router.get('/choose-speciality', function (req, res, next) {
 
 // Choose Doctor
 router.post('/choose-doctor', function (req, res, next) {
-    console.log(req.body);
+    // console.log(req.body);
     const speciality= req.body.speciality
 
     filteredDoctors=doctors.filter(doctor => doctor.speciality === speciality);
-     console.log(filteredDoctors);
+    //  console.log(filteredDoctors);
     // const filteredDoctors = doctors.filter(doctor => doctor.speciality === speciality);
     res.render('choose-doc', { title: 'Choose Doctor', doctors:filteredDoctors,speciality:speciality});
 });
 
 // View Slots
 router.post('/view-slots', function (req, res, next) {
-    console.log(req.body);
+    // console.log(req.body);
     const doctorId1 = req.body.doctor;
-    console.log(doctorId1)
+    // console.log(doctorId1)
     // console.log(slots.doctorId1)
     const filteredSlots = slots.filter(slot => (slot.doctorId === doctorId1 && slot.status === 'available' ));
     console.log(filteredSlots)
@@ -43,18 +43,21 @@ router.post('/view-slots', function (req, res, next) {
 // Personal Information
 router.post('/personalInfo', function (req, res, next) {
     console.log(req.body)
-    const timeSlot = req.body.timeSlot;
+    const timeSlot = req.body.selectedSlot;
     const filterSlot= slots.find(slot => (slot._id===timeSlot));
     // appoint.push({...req.body,id:`00${appoint.length+1}`})
     
     res.render('personalInfo', { title: 'Personal Information',speciality:req.body.speciality,doctorId:req.body.doctorId,timeSlot:timeSlot,filterSlot:filterSlot});
 });
+router.get('/confirm_page',function(req,res,next){
+    res.render('confirm_page',{title:'Confirm Page'})
+})
 
 // Appointment Details
 router.post('/appointdetails', function (req, res, next) {
 
     appoint.push({...req.body,appoint_id:`00${appoint.length+1}`})
-    res.redirect('/')
+    res.redirect('/allocates/Confirm_page')
     res.render('appointDetails', { title: 'Appointment Details', appoint: appoint });
 });
 

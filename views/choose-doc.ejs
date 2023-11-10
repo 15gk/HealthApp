@@ -1,30 +1,85 @@
-<!-- choose-doctor.ejs -->
+<!-- speciality.ejs -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Doctor</title>
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Ticketing</title>
+    <link rel="stylesheet" href="/stylesheets/style12.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
 <body>
-    <h1>Choose Doctor</h1>
-   <% console.log(doctors)%>
-   <% console.log(doctors[0].doctorName)%>
-   <% console.log(doctors[0].doctorId)%>
-    <form action="/allocates/view-slots" method="post">
-        
-        <label for="doctor">Select Doctor:</label>
-        
-        <select name="doctor" id="doctor" required>
-            <!-- Render doctors of the selected speciality dynamically -->
-            <% for (var i = 0; i < doctors.length; i++) { %>
-                <option value=<%=doctors[i].doctorId%>><%= doctors[i].doctorName %></option>
+    <div class="main-container">
+    <!-- <h1>Choose Speciality</h1> -->
+    <div class="header-grid navigation">
+        <img src="/images/logo12.png" alt="Logo" class="logo" />
+        <ul>
+          <li><a href="/home">Home</a></li>
+          <li><a href="allocates/choose-doctor">Appointment</a></li>
+          <li><a href="#">Report</a></li>
+          <li><a href="#">Profile</a></li>
+        </ul>
+      </div>
+
+      <div class="steps-container">
+        <div class="steps">
+          <h2>Follow these easy steps</h2>
+
+          <div class="diffsteps">
+            <p>Select a Department</p>
+            <img src="/images/select12.gif" class="decImage" />
+          </div>
+
+          <div class="diffsteps">
+            <p>Select a Doctor</p>
+            <img src="/images/doctor12.png" class="decImage" />
+          </div>
+
+          <div class="diffsteps">
+            <p>Select a Time Slot</p>
+            <img src="/images/time12.png" class="decImage" />
+          </div>
+
+          <div class="diffsteps">
+            <p>Provide your Personal Information</p>
+            <img src="/images/personalinfo12.png" class="decImage" />
+          </div>
+
+          <div class="diffsteps">
+            <p>Get Appointment confirmation</p>
+            <img src="/images/confirm12.png" class="decImage" />
+          </div>
+        </div>
+        <div class="department-container">
+          <h1 class="appointmentHeader">Select a Doctor from <%=speciality%>!!!</h1>
+          <div class="items-container">
+            <% for (const doctor of doctors) { %>
+              <div class="col-4 doc-card card mx-4" style="width: 13rem;height: 22rem;">
+              <img src="/images//doc12.jpg" class="doc-image" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title"><%= doctor.doctorName %></h5>
+                <p class="card-text">
+                  Experience: <%= doctor.noOfYearsExperience %> years
+                </p>
+                <form action="/allocates/view-slots" method="POST">
+                  <input type="hidden" name="speciality" value="<%= speciality %>" />
+                  <input type="hidden" name="doctor" value="<%= doctor.doctorId %>" />
+                  <button type="submit" class="btn btn-primary">Select Doctor</button>
+                </form>
+              </div>
+            </div>
             <% } %>
-        </select>
-          <input type="hidden" name="speciality" value="<%= speciality %>">
-        <button type="submit">Next</button>
-    </form>
+          </div>
+        </div>
+        
+        </div>
+    </div>
 </body>
 </html>
 
-
+ 

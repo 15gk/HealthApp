@@ -1,125 +1,145 @@
-let doctors = [
+let doctors=[
   {
     "doctorId": "doc-001",
-    "doctorName": "Dr. Smith",
+    "doctorName": "Dr. Aarav",
     "speciality": "Cardiology",
-    "noOfYearsExperience": 12
+    "noOfYearsExperience": 12,
+    "imgUrl": "/images/doc1.png"
   },
   {
     "doctorId": "doc-002",
-    "doctorName": "Dr. Johnson",
+    "doctorName": "Dr. Aashika",
     "speciality": "Neurology",
-    "noOfYearsExperience": 7
+    "noOfYearsExperience": 7,
+    "imgUrl": "/images/doc2.webp"
   },
   {
     "doctorId": "doc-003",
-    "doctorName": "Dr. Williams",
+    "doctorName": "Dr. Aniket",
     "speciality": "Pediatrics",
-    "noOfYearsExperience": 8
+    "noOfYearsExperience": 8,
+    "imgUrl": "/images/doc3.jpg"
   },
   {
     "doctorId": "doc-004",
-    "doctorName": "Dr. Brown",
+    "doctorName": "Dr. Binita",
     "speciality": "Orthopedics",
-    "noOfYearsExperience": 5
+    "noOfYearsExperience": 5,
+    "imgUrl": "/images/doc4.jpg"
   },
   {
     "doctorId": "doc-005",
-    "doctorName": "Dr. Jones",
+    "doctorName": "Dr. Dipesh",
     "speciality": "Dermatology",
-    "noOfYearsExperience": 11
+    "noOfYearsExperience": 11,
+    "imgUrl": "/images/doc5.jpg"
   },
   {
     "doctorId": "doc-006",
-    "doctorName": "Dr. Garcia",
+    "doctorName": "Dr. Esha",
     "speciality": "Psychiatry",
-    "noOfYearsExperience": 15
+    "noOfYearsExperience": 15,
+    "imgUrl": "/images/doc6.jpg"
   },
   {
     "doctorId": "doc-007",
-    "doctorName": "Dr. Davis",
+    "doctorName": "Dr. Ganesh",
     "speciality": "Endocrinology",
-    "noOfYearsExperience": 20
+    "noOfYearsExperience": 20,
+    "imgUrl": "/images/doc7.jpg"
   },
   {
     "doctorId": "doc-008",
-    "doctorName": "Dr. Rodriguez",
+    "doctorName": "Dr. Gauri",
     "speciality": "Urology",
-    "noOfYearsExperience": 3
+    "noOfYearsExperience": 3,
+    "imgUrl": "/images/doc8.jpg"
   },
   {
     "doctorId": "doc-009",
-    "doctorName": "Dr. Hernandez",
+    "doctorName": "Dr. Harsh",
     "speciality": "Cardiology",
-    "noOfYearsExperience": 10
+    "noOfYearsExperience": 10,
+    "imgUrl": "/images/doc9.jpg"
   },
   {
     "doctorId": "doc-010",
-    "doctorName": "Dr. Lopez",
+    "doctorName": "Dr. Ishita",
     "speciality": "Neurology",
-    "noOfYearsExperience": 4
+    "noOfYearsExperience": 4,
+    "imgUrl": "/images/doc10.jpg"
   },
   {
     "doctorId": "doc-011",
-    "doctorName": "Dr. Gonzalez",
+    "doctorName": "Dr. Jeevan",
     "speciality": "Pediatrics",
-    "noOfYearsExperience": 16
+    "noOfYearsExperience": 16,
+    "imgUrl": "/images/doc11.jpg"
   },
   {
     "doctorId": "doc-012",
-    "doctorName": "Dr. Wilson",
+    "doctorName": "Dr. Jyoti",
     "speciality": "Orthopedics",
-    "noOfYearsExperience": 9
+    "noOfYearsExperience": 9,
+    "imgUrl": "/images/doc12.jpg"
   },
   {
     "doctorId": "doc-013",
-    "doctorName": "Dr. Anderson",
+    "doctorName": "Dr. Kavi",
     "speciality": "Dermatology",
-    "noOfYearsExperience": 7
+    "noOfYearsExperience": 7,
+    "imgUrl": "/images/doc13.jpg"
   },
   {
     "doctorId": "doc-014",
-    "doctorName": "Dr. Taylor",
+    "doctorName": "Dr. Kirti",
     "speciality": "Psychiatry",
-    "noOfYearsExperience": 14
+    "noOfYearsExperience": 14,
+    "imgUrl": "/images/doc14.jpg"
   },
   {
     "doctorId": "doc-015",
-    "doctorName": "Dr. Thomas",
+    "doctorName": "Dr. Lalita",
     "speciality": "Endocrinology",
-    "noOfYearsExperience": 18
+    "noOfYearsExperience": 18,
+    "imgUrl": "/images/doc15.jpg"
   },
   {
     "doctorId": "doc-016",
-    "doctorName": "Dr. Moore",
+    "doctorName": "Dr. Mahesh",
     "speciality": "Urology",
-    "noOfYearsExperience": 6
+    "noOfYearsExperience": 6,
+    "imgUrl": "/images/doc16.jpg"
   },
   {
     "doctorId": "doc-017",
-    "doctorName": "Dr. Jackson",
+    "doctorName": "Dr. Meera",
     "speciality": "Cardiology",
-    "noOfYearsExperience": 13
+    "noOfYearsExperience": 14,
+    "imgUrl": "/images/doc17.jpeg"
   },
   {
     "doctorId": "doc-018",
-    "doctorName": "Dr. Martin",
+    "doctorName": "Dr. Nabin",
     "speciality": "Neurology",
-    "noOfYearsExperience": 2
+    "noOfYearsExperience": 2,
+    "imgUrl": "/images/doc18.jpg"
   },
   {
     "doctorId": "doc-019",
-    "doctorName": "Dr. Anderson",
+    "doctorName": "Dr. Neha",
     "speciality": "Endocrinology",
-    "noOfYearsExperience": 19
+    "noOfYearsExperience": 19,
+    "imgUrl": "/images/doc19.jpg"
   },
   {
     "doctorId": "doc-020",
-    "doctorName": "Dr. Thomas",
+    "doctorName": "Dr. Omkar",
     "speciality": "Urology",
-    "noOfYearsExperience": 1
+    "noOfYearsExperience": 1,
+    "imgUrl": "/images/doc20.jpg"
   }
-];
+]
 
 
 module.exports = doctors;

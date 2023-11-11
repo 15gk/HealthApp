@@ -58,17 +58,57 @@
         <div class="department-container">
             <h1 class="appointmentHeader">Select a Department !!!</h1>
             <div class="items-container">
-                <% for (const speciality of specialities) { %>
-                  <form action="/allocates/choose-doctor" method="POST">
-                    <div class="item">
-                      <input type="hidden" name="speciality" value="<%= speciality %>" />
-                      <!-- Use a styled button to submit the form -->
-                      <button type="submit" class="submit-button1">
-                        <%= speciality %>
-                      </button>
-                    </div>
-                  </form>
-                <% } %>
+              <% for (const speciality of specialities) { %>
+                <form action="/allocates/choose-doctor" method="POST">
+                  <div class="item">
+                    <input type="hidden" name="speciality" value="<%= speciality %>" />
+                    <button type="submit" class="submit-button1">
+                      <%= speciality %>
+                    </button>
+              
+                    <% switch (speciality) { 
+                      case 'Cardiology': %>
+                      <img src="/images/cardiology.jpeg" alt="Cardiology" width="50" height="50" class="logo-here">
+                    <% break;
+            
+                    case 'Dermatology': %>
+                      <img src="/images/dermatology1.webp" alt="Dermatology" width="65" height="65" class="logo-here">
+                    <% break;
+            
+                    case 'Urology': %>
+                      <img src="/images/Urology.png" alt="Urology" width="50" height="50" class="logo-here">
+                    <% break;
+            
+                    case 'Pediatrics': %>
+                      <img src="/images/Pediatrics.png" alt="Pediatrics" width="50" height="50" class="logo-here">
+                    <% break;
+            
+                    case 'Neurology': %>
+                      <img src="/images/Neurology.png" alt="Neurology" width="50" height="50" class="logo-here">
+                    <% break;
+            
+                    case 'Orthopedics': %>
+                      <img src="/images/Orthopedics.png" alt="Orthopedics" width="50" height="50" class="logo-here">
+                    <% break;
+            
+                    case 'Endocrinology': %>
+                      <img src="/images/Endocrinology.png" alt="Endocrinology" width="50" height="50" class="logo-here">
+                    <% break;
+            
+                    case 'Psychiatry': %>
+                      <img src="/images/psychiatry.jpeg" alt="Psychiatry" width="60" height="60" class="logo-here">
+                    <% break;
+                      default: %>
+                        <img src="/images/default.jpg" alt="Default Image" width="100" height="100">
+                    <% } %>
+              
+                    <!-- Use a styled button to submit the form -->
+                    
+                  </div>
+                </form>
+              <% } %>
+              
+              
               </div>
           </div>
         </div>

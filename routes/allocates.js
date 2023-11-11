@@ -7,7 +7,7 @@ var slots = require('../resources/slots');
 var appointments = require('../resources/appointments');
 var appoint=require('../resources/appoint')
 
-router.get('/viewAppoint', function(req, res, next) {
+router.post('/viewAppoint', function(req, res, next) {
     
     res.render('viewAppoint', { title: 'Slots', appointList:appoint });
   });
@@ -35,6 +35,7 @@ router.post('/view-slots', function (req, res, next) {
     const doctorId1 = req.body.doctor;
     // console.log(doctorId1)
     // console.log(slots.doctorId1)
+    
     const filteredSlots = slots.filter(slot => (slot.doctorId === doctorId1 && slot.status === 'available' ));
     console.log(filteredSlots)
     res.render('viewSlots', { title: 'View Slots', slots: filteredSlots,speciality:req.body.speciality,doctorId:doctorId1});
@@ -44,10 +45,13 @@ router.post('/view-slots', function (req, res, next) {
 router.post('/personalInfo', function (req, res, next) {
     console.log(req.body)
     const timeSlot = req.body.selectedSlot;
-    const filterSlot= slots.find(slot => (slot._id===timeSlot));
-    // appoint.push({...req.body,id:`00${appoint.length+1}`})
+    console.log(timeSlot)
     
-    res.render('personalInfo', { title: 'Personal Information',speciality:req.body.speciality,doctorId:req.body.doctorId,timeSlot:timeSlot,filterSlot:filterSlot});
+    // const filterSlot= slots.find(slot => (slot._id===timeSlot));
+    // console.log(filterSlot)
+    // appoint.push({...req.body,id:`00${appoint.length+1}`})
+
+    res.render('personalInfo', { title: 'Personal Information',speciality:req.body.speciality,doctorId:req.body.doctorId,timeSlot:timeSlot});
 });
 router.get('/confirm_page',function(req,res,next){
     res.render('confirm_page',{title:'Confirm Page'})
@@ -55,25 +59,30 @@ router.get('/confirm_page',function(req,res,next){
 
 // Appointment Details
 router.post('/appointdetails', function (req, res, next) {
-
+console.log(req.body)
+console.log(req.body.timeSlot)
+const sloted=req.body.timeSlot
+const selectedSlot1=slots.filter(slot=>(slot._id===sloted));
+console.log(selectedSlot1)
+const startTime = selectedSlot1.startTime;
     appoint.push({...req.body,appoint_id:`00${appoint.length+1}`})
     res.redirect('/allocates/Confirm_page')
     res.render('appointDetails', { title: 'Appointment Details', appoint: appoint });
 });
 
 // Update Appointment Status
-router.post('/update-appointment', function (req, res, next) {
-    const appointmentId = req.body.appointmentId;
-    const newStatus = req.body.newStatus;
+// router.post('/update-appointment', function (req, res, next) {
+//     const appointmentId = req.body.appointmentId;
+//     const newStatus = req.body.newStatus;
 
-    // Replace with your logic to update appointment status
-    const appointmentIndex = appointments.findIndex(appointment => appointment._id === appointmentId);
-    if (appointmentIndex !== -1) {
-        appointments[appointmentIndex].status = newStatus;
-    }
+//     // Replace with your logic to update appointment status
+//     const appointmentIndex = appointments.findIndex(appointment => appointment._id === appointmentId);
+//     if (appointmentIndex !== -1) {
+//         appointments[appointmentIndex].status = newStatus;
+//     }
 
-    res.redirect('/appointment-details'); // Redirect to the updated appointment details page
-});
+//     res.redirect('/appointment-details'); // Redirect to the updated appointment details page
+// });
 
 // Replace with your logic to generate a unique patientId
 // function generateUniqueId() {

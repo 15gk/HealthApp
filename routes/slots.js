@@ -2,15 +2,17 @@ var express = require('express');
 var router = express.Router();
 var slots=require('../resources/slots')
 
-
+router.get('/', function(req, res, next) {
+  res.render('slots', { title: 'Slots', slotList:slots });
+});
 
 /* GET home page. */
 router.get('/add', async function(req, res, next) {
   res.render('addslots', { title: 'ADD slots' });
 });
 router.post('/save', async function(req, res, next) {
-  slots.push({...req.body,_id:`${slots.length}`,status:"booked"})
-    res.redirect('/')
+  slots.push({...req.body,_id:`${slots.length}`,status:"available",doctorId:"doc-001",token:`${slots.length}`})
+    res.redirect('/slots')
   });
 
   router.get('/edit/:_id', function(req, res, next){

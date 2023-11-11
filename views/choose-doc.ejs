@@ -19,7 +19,7 @@
     <div class="header-grid navigation">
         <img src="/images/logo12.png" alt="Logo" class="logo" />
         <ul>
-          <li><a href="/home">Home</a></li>
+          <li><a href="/home"> <strong>Home</strong></a></li>
           <li><a href="allocates/choose-doctor">Appointment</a></li>
           <li><a href="#">Report</a></li>
           <li><a href="#">Profile</a></li>
@@ -60,7 +60,8 @@
           <div class="items-container">
             <% for (const doctor of doctors) { %>
               <div class="col-4 doc-card card mx-4" style="width: 13rem;height: 22rem;">
-              <img src="/images//doc12.jpg" class="doc-image" alt="..." />
+
+              <img src=<%=doctor.imgUrl%> class="doc-image" alt="..." />
               <div class="card-body">
                 <h5 class="card-title"><%= doctor.doctorName %></h5>
                 <p class="card-text">

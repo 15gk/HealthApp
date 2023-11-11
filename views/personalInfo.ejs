@@ -59,9 +59,9 @@
 
 
 <!-- form -->
-<div class="col-8 ml-4" style="left-margin:20rem;">
+<div class="col-8 ml-4" >
   <h2 class="mb-4">Personal Information</h2>
-  <form action="/allocates/appointDetails" method="post">
+  <form action="/allocates/appointdetails" method="post">
     <div class="mb-3">
       <label class="form-label" for="patientName">Name</label>
       <input type="text" class="form-control" aria-describedby="name" ame="patientName" id="patientName"/>
@@ -130,9 +130,7 @@
     <input type="hidden" name="speciality" value="<%= speciality %>">
     <input type="hidden" name="doctorId" value="<%= doctorId %>">
     <input type="hidden" name="timeSlot" value="<%= timeSlot %>">
-    <input type="hidden" name="startTime" value="<%=filterSlot.startTime%>">
-    <input  type="hidden" name="endTime" value="<%=filterSlot.endTime%>">
-    <input type="hidden" name="date" value="<%=filterSlot.date%>">
+     
     <button type="submit" class="btn btn-primary">
       Submit
     </button>

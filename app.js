@@ -4,13 +4,57 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser=require('body-parser')
+session = require("express-session");//for authentication
+const passport = require("passport");//for authentication
+const LocalStrategy = require("passport-local").Strategy;//for authentication
+
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var slotsRouter=require('./routes/slots')
 var allocatesRouter=require('./routes/allocates')
 
+
+ // Include the user model for saving to MongoDB VIA mongoose
+const User = require("./models/user");
+
+//Database connection -- We are using MongoDB 
+const MongoStore = require('connect-mongo');
+const mongoose = require('mongoose');
+const mongoString =
+  "mongodb+srv://admin:bjeCPOcOcnErnvkF@cluster0.uud0rqm.mongodb.net/";
+mongoose.connect(mongoString);
+const db = mongoose.connection
+
 var app = express();
+
+
+
+  //Session configuration and utilization of the MongoStore for storing
+  //the session in the MongoDB database
+app.use(express.urlencoded({ extended: false }));
+app.use(
+  session({
+    secret: "your secret key",
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({ mongoUrl: "mongodb://127.0.0.1/healthApp" }),
+  })
+);
+/*
+  Setup the local passport strategy, add the serialize and 
+  deserialize functions that only saves the ID from the user
+  by default.
+*/
+const strategy = new LocalStrategy(User.authenticate())
+passport.use(strategy);
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
@@ -35,10 +79,75 @@ app.use('/slots',slotsRouter)
 console.log("6")
 app.use('/allocates',allocatesRouter)
 
+app.get("/register", function (req, res) {
+  res.render("signup");
+});
+//for authentication
+app.post("/register", function (req, res) {
+  const newUser = new User({
+    email: req.body.email,
+    username: req.body.username,
+  });
+
+  User.register(newUser, req.body.password, function (err, user) {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      res.render("/error");
+    } else {
+      // res.status(200).json({ message: "Registration successful", user });
+      res.render("/login")
+    }
+  });
+});
+
+/*
+  Login routes -- This is where we will use the 'local'
+  passport authenciation strategy. If success, send to
+  /login-success, if failure, send to /login-failure
+*/
+app.get("/login", function (req, res) {
+  res.render("login");
+});
+
+app.post('/login', passport.authenticate('local', { 
+  failureRedirect: '/error', 
+  successRedirect: '/home'
+}), (err, req, res, next) => {
+  if (err) next(err);
+});
+
+// app.get('/login-failure', (req, res, next) => {
+//   console.log(req.session);
+//   res.send('Login Attempt Failed.');
+//   res.render("/error");
+// });
+
+// app.get('/login-success', (req, res, next) => {
+//   res.render("/home")
+// });
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
 });
+
+
+/*
+  Protected Route -- Look in the account controller for
+  how we ensure a user is logged in before proceeding.
+  We call 'isAuthenticated' to check if the request is 
+  authenticated or not. 
+*/
+app.get('/profile', function(req, res) {
+  console.log(req.session)
+  if (req.isAuthenticated()) {
+    res.json({ message: 'You made it to the secured profie' })
+  } else {
+    res.json({ message: 'You are not authenticated' })
+  }
+})
+
 
 // error handler
 app.use(function(err, req, res, next) {

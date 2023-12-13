@@ -1,0 +1,24 @@
+<!-- view-slots.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Slots</title>
+</head>
+<body>
+    <h1>View Slots</h1>
+    <form action="/allocates/personalInfo" method="post">
+        <label for="timeSlot">Select Time Slot:</label>
+        <select name="timeSlot" id="timeSlot" required>
+            <!-- Render available time slots of the selected doctor dynamically -->
+            <% for (const slot of slots) { %>
+                <option value="<%= slot._id %>"><%= slot.startTime %> - <%= slot.endTime %></option>
+            <% } %>
+        </select>
+        <input type="hidden" name="speciality" value="<%= speciality %>">
+        <input type="hidden" name="doctorId" value="<%= doctorId %>">
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>

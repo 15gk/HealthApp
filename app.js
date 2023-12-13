@@ -1,13 +1,22 @@
-var createError = require('http-errors');
+ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var bodyParser=require('body-parser')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var slotsRouter=require('./routes/slots')
+var allocatesRouter=require('./routes/allocates')
 
 var app = express();
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+		
+// parse application/json
+app.use(bodyParser.json())
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,6 +30,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+console.log("5")
+app.use('/slots',slotsRouter)
+console.log("6")
+app.use('/allocates',allocatesRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -37,5 +50,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+const db = require('./db')
 
 module.exports = app;

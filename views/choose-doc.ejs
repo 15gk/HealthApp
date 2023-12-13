@@ -1,0 +1,30 @@
+<!-- choose-doctor.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Doctor</title>
+</head>
+<body>
+    <h1>Choose Doctor</h1>
+   <% console.log(doctors)%>
+   <% console.log(doctors[0].doctorName)%>
+   <% console.log(doctors[0].doctorId)%>
+    <form action="/allocates/view-slots" method="post">
+        
+        <label for="doctor">Select Doctor:</label>
+        
+        <select name="doctor" id="doctor" required>
+            <!-- Render doctors of the selected speciality dynamically -->
+            <% for (var i = 0; i < doctors.length; i++) { %>
+                <option value=<%=doctors[i].doctorId%>><%= doctors[i].doctorName %></option>
+            <% } %>
+        </select>
+          <input type="hidden" name="speciality" value="<%= speciality %>">
+        <button type="submit">Next</button>
+    </form>
+</body>
+</html>
+
+

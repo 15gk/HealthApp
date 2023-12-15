@@ -1,6 +1,6 @@
 // appointments.js
 let slots = [
-    { "_id":"1",
+    { "_id":"23",
       "doctorId": "doc-001",
       "token": 1,
       "date": "2023-11-08",

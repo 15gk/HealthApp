@@ -4,7 +4,7 @@ var router = express.Router();
 var doctors = require('../resources/doctors');
 var users = require('../resources/users');
 var slots = require('../resources/slots');
-var appointments = require('../resources/appointments');
+// var appointments = require('../resources/appointments');
 var appoint=require('../resources/appoint')
 
 router.post('/viewAppoint', function(req, res, next) {

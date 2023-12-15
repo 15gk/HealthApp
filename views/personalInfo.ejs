@@ -64,7 +64,7 @@
   <form action="/allocates/appointdetails" method="post">
     <div class="mb-3">
       <label class="form-label" for="patientName">Name</label>
-      <input type="text" class="form-control" aria-describedby="name" ame="patientName" id="patientName"/>
+      <input type="text" class="form-control" aria-describedby="name" name="patientName" id="patientName"/>
     </div>
 
     <div class="row">
@@ -130,7 +130,11 @@
     <input type="hidden" name="speciality" value="<%= speciality %>">
     <input type="hidden" name="doctorId" value="<%= doctorId %>">
     <input type="hidden" name="timeSlot" value="<%= timeSlot %>">
-     
+    <input type="hidden" name="appoint_id" value="<%=appoint_id%>">
+    <input type="hidden" name="startTime" value="<%=appointSlot.startTime%>">
+    <input type="hidden" name="endTime" value="<%=appointSlot.endTime%>">
+    <input type="hidden" name="status" value="booked">
+
     <button type="submit" class="btn btn-primary">
       Submit
     </button>

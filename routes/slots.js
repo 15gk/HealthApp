@@ -7,7 +7,7 @@ router.get('/', async function(req, res, next) {
    const slots = await Slot.find()
    res.render("slots", {
      title: "Slots",
-     slotList: slots,
+     slotList:slots,
    });
  });
 
@@ -16,10 +16,10 @@ router.get('/add', async function(req, res, next) {
   const slots = await Slot.find();
   res.render("addslots", {
     title: "ADD slots",
-    token: `${slots.length+1}`,
+    token:`${slots.length+1}`,
     doctorId: "doc-001",
     status: "available",
-    _id: `${slots.length+1}`,
+    _id:`${slots.length+1}`,
   });
 });
 router.post('/save', async function(req, res, next) {

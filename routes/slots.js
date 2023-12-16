@@ -1,17 +1,29 @@
 var express = require('express');
 var router = express.Router();
-var slots=require('../resources/slots')
+// var slots=require('../resources/slots')
+var Slot=require('../models/slots')
 
-router.get('/', function(req, res, next) {
-  res.render('slots', { title: 'Slots', slotList:slots });
-});
+router.get('/', async function(req, res, next) {
+   const slots = await Slot.find()
+   res.render("slots", {
+     title: "Slots",
+     slotList:slots,
+   });
+ });
 
 /* GET home page. */
 router.get('/add', async function(req, res, next) {
-  res.render('addslots', { title: 'ADD slots' });
+  const slots = await Slot.find();
+  res.render("addslots", {
+    title: "ADD slots",
+    token:`${slots.length+1}`,
+    doctorId: "doc-001",
+    status: "available",
+    _id:`${slots.length+1}`,
+  });
 });
 router.post('/save', async function(req, res, next) {
-  slots.push({...req.body,_id:`${slots.length}`,status:"available",doctorId:"doc-001",token:`${slots.length}`})
+  await Slot.insertMany([req.body])
     res.redirect('/slots')
   });
 

@@ -2,7 +2,8 @@
 var express = require('express');
 var router = express.Router();
 var doctors = require('../resources/doctors');
-var users = require('../resources/users');
+var User = require("../models/user")
+// var users = require('../resources/users');
 // var slots = require('../resources/slots');
 var Appoint = require("../models/appoint");
 var Slot = require("../models/slots");
@@ -42,6 +43,7 @@ router.post('/personalInfo', async function (req, res, next) {
     const appoint=await Appoint.find();
     const appointSlot = slots.find(slot => slot._id == selectedSlotObj._id);
     console.log(appointSlot)
+    console.log(req.user)
 
      await Slot.findOneAndUpdate(
        { _id: selectedSlotObj._id },
@@ -54,21 +56,43 @@ router.post('/personalInfo', async function (req, res, next) {
       title: "Personal Information",
       speciality: req.body.speciality,
       doctorId: req.body.doctorId,
-      timeSlot: timeSlot,
-      appoint_id: `appoint00${appoint.length + 1}`,
+      appoint_id:`appoint00${appoint.length + 1}`,
       appointSlot,
+      userId:req.user.userId,
+      date:appointSlot.date,
     });
 });
 router.get('/confirm_page',function(req,res,next){
     res.render('confirm_page',{title:'Confirm Page'})
 })
 
+
+
 // Appointment Details
 router.post('/appointdetails', async function (req, res, next) {
-const sloted=req.body.timeSlot
+console.log(req.body)
 await Appoint.insertMany([req.body])
-res.redirect('/confirm_page')
-    // res.render('appointDetails', { title: 'Appointment Details', appoint: appoint });
+console.log(req.user)
+const appoint= await Appoint.find({userId:req.user.userId})
+res.redirect('/allocates/confirm_page')
+// res.render('appointDetails', { title: 'Appointment Details', appointList: appoint });
 });
 
+router.get("/appointdetails", async function (req, res, next) {
+  console.log(req.user);
+  const appoint = await Appoint.find({ userId: req.user.userId });
+  res.render("appointDetails", {
+    title: "Appointment Details",
+    appointList: appoint,
+  });
+});
+
+router.get("/appointstatus", async function(req, res,next)  {
+  const date = req.query.date;
+  const doctorId = req.query.doctorId;
+  console.log(req.user);
+
+  const appoint = await Appoint.find({ date, doctorId })
+  res.render("appointstatus", { title: "Appoint", appointList: appoint });
+});
 module.exports = router;

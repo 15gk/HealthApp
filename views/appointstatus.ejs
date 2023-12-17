@@ -1,0 +1,51 @@
+<!-- views/appoint.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
+    <!-- Add your stylesheets or any other head elements here -->
+</head>
+
+<body>
+
+    <h1>
+        <%= title %>
+    </h1>
+
+    <% if (appointList.length> 0) { %>
+        <ul>
+            <% appointList.forEach(appoint=> { %>
+                <li>
+                    <strong>Appointment ID:</strong>
+                    <%= appoint.appoint_id %> <br>
+                                        <strong>Doctor ID:</strong>
+                                        <%= appoint.doctorId %> <br>
+                                            <strong>Start Time:</strong>
+                                            <%= appoint.startTime %> <br>
+                                                <strong>End Time:</strong>
+                                                <%= appoint.endTime %> <br>
+                                                    <strong>User ID:</strong>
+                                                    <%= appoint.userId %> <br>
+                                                    <strong>Status:</strong>
+                                                    <%= appoint.status %> <br>
+                                                    <strong>Date:</strong>
+                                                    <%= appoint.date %> <br>
+                                                        <!-- Add more appointment details as needed -->
+                </li>
+                <% }); %>
+        </ul>
+        <% } else { %>
+            <p>No appointments found.</p>
+            <% } %>
+
+                <!-- Add your scripts or any other body elements here -->
+
+</body>
+
+</html>

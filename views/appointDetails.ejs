@@ -1,35 +1,67 @@
-<!-- appoint-details.ejs -->
+<!-- views/appoint.ejs -->
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appointment Details</title>
+    <title>
+        <%= title %>
+    </title>
+    <!-- Add your stylesheets or any other head elements here -->
 </head>
-<body>
-    <h1>Appointment Details</h1>
 
-    <h2>Current Appointment:</h2>
-    <p>Patient ID: <%= appoint.patientId %></p>
-    <%console.log(<%= appoint.patientId %>)%>
-    <p>Speciality: <%= appoint.speciality %></p>
-    <%console.log("test test")%>
-    <p>Doctor ID: <%= appoint.doctorId %></p>
-    <%console.log(appoint)%>
-    <p>Slot ID: <%= appoint.slotId %></p>
-    <p>Start Time: <%= appoint.startTime %></p>
-    <p>End Time: <%= appoint.endTime %></p>
-    <p>Status: <%= appoint.status %></p>
-    <h2>Update Appointment Status:</h2>
-    <form action="/update-appoint" method="post">
-        <label for="newStatus">New Status:</label>
-        <select name="newStatus" id="newStatus" required>
-            <option value="Pending">Pending</option>
-            <option value="Confirmed">Confirmed</option>
-            <option value="Cancelled">Cancelled</option>
-        </select>
-        <input type="hidden" name="appointId" value="<%= appoint._id %>">
-        <button type="submit">Update Status</button>
-    </form>
+<body>
+
+    <h1>
+        <%= title %>
+    </h1>
+
+    <% if (appointList.length> 0) { %>
+        <ul>
+            <% appointList.forEach(appoint=> { %>
+                <li>
+                    <strong>Appointment ID:</strong>
+                    <%= appoint.appoint_id %> <br>
+                        <strong>Patient Name:</strong>
+                        <%= appoint.patientName %> <br>
+                            <strong>Age:</strong>
+                            <%= appoint.age %> <br>
+                                <strong>Gender:</strong>
+                                <%= appoint.gender %> <br>
+                                    <strong>Email:</strong>
+                                    <%= appoint.email %> <br>
+                                        <!-- <strong>Phone:</strong>
+                                        <%= appoint.phone %> <br>
+                                            <strong>Address:</strong>
+                                            <%= appoint.address %> <br> -->
+                                                <strong>Doctor ID:</strong>
+                                                <%= appoint.doctorId %> <br>
+                                                <strong>Doctor ID:</strong>
+                                                <%= appoint.date %> <br>
+                                                    <strong>Start Time:</strong>
+                                                    <%= appoint.startTime %> <br>
+                                                        <strong>End Time:</strong>
+                                                        <%= appoint.endTime %> <br>
+                                                            <strong>User ID:</strong>
+                                                            <%= appoint.userId %> <br>
+                                            <form action="/allocates/appointstatus" method="GET">
+                                                <input type="hidden" name="date" value="<%= appoint.date %>">
+                                                <input type="hidden" name="doctorId" value="<%= appoint.doctorId %>">
+                                                <button type="submit">Check Status</button>
+                                            </form>
+
+                                                                <!-- Add more appointment details as needed -->
+                </li>
+                <% }); %>
+        </ul>
+        <% } else { %>
+            <p>No appointments found.</p>
+            <% } %>
+
+                <!-- Add your scripts or any other body elements here -->
+
 </body>
+
 </html>

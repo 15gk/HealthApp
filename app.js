@@ -157,7 +157,7 @@ app.get("/logout", function (req, res, next) {
     }
   
   });
-    res.redirect("/");
+    res.redirect("/register");
 });
 
 // catch 404 and forward to error handler

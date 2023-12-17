@@ -44,9 +44,13 @@ const AppointSchema = new Schema({
     type: String,
     required: false,
   },
+  date: {
+    type: Date,
+    required: false,
+  },
   userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "user", // Reference to UserModel
+    type: String,
+    required: true,
   },
 });
 

@@ -44,10 +44,31 @@ const AppointSchema = new Schema({
     type: String,
     required: false,
   },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "user", // Reference to UserModel
+  date: {
+    type: Date,
+    required: false,
   },
+  slot_id: {
+    type: String,
+    required: false,
+  },
+  status: {
+    type: String,
+    enum: ["available", "booked"],
+    required: false,
+  },
+  // slot_id: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   required: false,
+  //   ref: "slots",
+  // },
+  userId: {
+    type: String,
+    required: true,
+  },
+},
+{
+  _id:false,
 });
 
 const AppointModel = mongoose.model("appoint", AppointSchema);

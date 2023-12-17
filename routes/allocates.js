@@ -2,7 +2,8 @@
 var express = require('express');
 var router = express.Router();
 var doctors = require('../resources/doctors');
-var users = require('../resources/users');
+var User = require("../models/user")
+// var users = require('../resources/users');
 // var slots = require('../resources/slots');
 var Appoint = require("../models/appoint");
 var Slot = require("../models/slots");
@@ -35,13 +36,15 @@ router.post('/personalInfo', async function (req, res, next) {
     // console.log(req.body)
     const timeSlot = req.body.selectedSlot;
     const selectedSlotObj = JSON.parse(timeSlot);
-    console.log(selectedSlotObj._id)
-    console.log(timeSlot)
+    // console.log(selectedSlotObj._id)
+    // console.log(timeSlot)
     
     const slots = await Slot.find();
     const appoint=await Appoint.find();
     const appointSlot = slots.find(slot => slot._id == selectedSlotObj._id);
     console.log(appointSlot)
+    console.log(appointSlot.status)
+    console.log(req.user)
 
      await Slot.findOneAndUpdate(
        { _id: selectedSlotObj._id },
@@ -49,26 +52,87 @@ router.post('/personalInfo', async function (req, res, next) {
      );
     //here change status into booked 
     console.log(appointSlot.startTime)
+    
 
     res.render("personalInfo", {
       title: "Personal Information",
       speciality: req.body.speciality,
       doctorId: req.body.doctorId,
-      timeSlot: timeSlot,
-      appoint_id: `appoint00${appoint.length + 1}`,
+      appoint_id:`appoint00${appoint.length + 1}`,
       appointSlot,
+      status:"booked",
+      userId:req.user.userId,
+      date:appointSlot.date,
     });
 });
 router.get('/confirm_page',function(req,res,next){
     res.render('confirm_page',{title:'Confirm Page'})
 })
 
+
+
 // Appointment Details
 router.post('/appointdetails', async function (req, res, next) {
-const sloted=req.body.timeSlot
+console.log(req.body)
 await Appoint.insertMany([req.body])
-res.redirect('/confirm_page')
-    // res.render('appointDetails', { title: 'Appointment Details', appoint: appoint });
+console.log(req.user)
+const appoint= await Appoint.find({userId:req.user.userId})
+res.redirect('/allocates/confirm_page')
+// res.render('appointDetails', { title: 'Appointment Details', appointList: appoint });
 });
 
+router.get("/appointdetails", async function (req, res, next) {
+    // const slots=await Slot.find(date)
+  console.log(req.user);
+  const appoint = await Appoint.find({ userId: req.user.userId });
+  console.log(appoint)
+  res.render("appointDetails", {
+    title: "Appointment Details",
+    appointList: appoint,
+  });
+});
+
+router.get("/appointstatus", async function(req, res,next)  {
+  const date = req.query.date;
+  const doctorId=req.query.doctorId;
+  console.log(req.user);
+
+  const appoint = await Appoint.find({ date, doctorId })
+  res.render("appointstatus", { title: "Appoint", appointList: appoint });
+});
+
+
+router.get("/delete/:userId", async function (req, res, next) {
+  console.log(req.params.userId);
+//   const appoint_id = req.body;
+
+  try {
+    // Find the slot by ID
+    const AppointToDelete = await Appoint.find({userId :req.params.userId});
+    console.log(AppointToDelete)
+    // Check if the slot exists
+    if (!AppointToDelete) {
+      // Slot not found
+      return res.redirect("/appointdetails"); // Redirect to the same page or handle as needed
+    }
+    
+     
+    await Appoint.findOneAndDelete({ userId: req.params.userId });
+   
+    // Fetch the updated slot list
+    const appoint = await Appoint.find({userId:req.user.userId });
+
+    // Render the updated slots page
+    res.render("appointdetails", {
+      title: "Appoint Details",
+      appointList: appoint,
+      user: req.user,
+      redirectUrl: "/allocates/appointdetails",
+    });
+  } catch (error) {
+    // Handle any errors that may occur during the process
+    console.error("Error deleting slot:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 module.exports = router;

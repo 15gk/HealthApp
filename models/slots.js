@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const SlotSchema = new Schema({
-  _id:{
-    type:String,
+  _id: {
+    type: String,
     required: true,
   },
   doctorId: {
@@ -30,6 +30,10 @@ const SlotSchema = new Schema({
     type: String,
     enum: ["available", "booked"],
     required: true,
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId, // Assuming userId is ObjectId
+    ref: "user", // Reference to UserModel
   },
 });
 

@@ -133,9 +133,11 @@
     <input type="hidden" name="appoint_id" value="<%=appoint_id%>">
     <input type="hidden" name="startTime" value="<%=appointSlot.startTime%>">
     <input type="hidden" name="endTime" value="<%=appointSlot.endTime%>">
-    <input type="hidden" name="status" value="booked">
+    <input type="hidden" name="status" value="<%=status%>">
     <input type="hidden" name="userId" value="<%=userId%>">
     <input type="hidden" name="date" value="<%=date%>">
+    <input type="hidden" name="slot_id" value="<%=appointSlot._id%>">
+    <!-- <input type="hidden" name="status" value="<%=status%>"> -->
     <button type="submit" class="btn btn-primary">
       Submit
     </button>

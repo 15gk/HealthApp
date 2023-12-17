@@ -38,7 +38,7 @@
                                             <%= appoint.address %> <br> -->
                                                 <strong>Doctor ID:</strong>
                                                 <%= appoint.doctorId %> <br>
-                                                <strong>Doctor ID:</strong>
+                                                <strong>Date:</strong>
                                                 <%= appoint.date %> <br>
                                                     <strong>Start Time:</strong>
                                                     <%= appoint.startTime %> <br>
@@ -46,11 +46,19 @@
                                                         <%= appoint.endTime %> <br>
                                                             <strong>User ID:</strong>
                                                             <%= appoint.userId %> <br>
+                                                            <strong>Status:</strong>
+                                                            <%= appoint.status%> <br>
                                             <form action="/allocates/appointstatus" method="GET">
                                                 <input type="hidden" name="date" value="<%= appoint.date %>">
-                                                <input type="hidden" name="doctorId" value="<%= appoint.doctorId %>">
+                                                <input type="hidden" name="doctorId"value="<%= appoint.doctorId %>">
                                                 <button type="submit">Check Status</button>
                                             </form>
+                                            <form action="/allocates/delete/<%= appoint.userId %>" method="GET">
+                                                <input type="hidden" name="slot_id" value="<%= appoint.slot_id %>">
+                                                <input type="hidden" name="appoint_id" value="<%= appoint.appoint_id %>">
+                                                <button type="submit">Cancel the Appointment</button>
+                                            </form>
+
 
                                                                 <!-- Add more appointment details as needed -->
                 </li>
@@ -60,7 +68,7 @@
             <p>No appointments found.</p>
             <% } %>
 
-                <!-- Add your scripts or any other body elements here -->
+               
 
 </body>
 

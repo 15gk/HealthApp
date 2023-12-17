@@ -4,22 +4,36 @@ var router = express.Router();
 var Slot=require('../models/slots')
 
 router.get('/', async function(req, res, next) {
-   const slots = await Slot.find()
+  console.log(req.user)
+  console.log(req.user.username)
+  const doctorId= req.user.doctorId
+  try {
+   // Assuming you have a field 'doctorId' in your Slot model
+   const slots = await Slot.find({ doctorId: doctorId });
    res.render("slots", {
      title: "Slots",
-     slotList:slots,
+     slotList: slots,
+     user:req.user
    });
+ } catch (error) {
+   // Handle any errors that may occur during the database query
+   console.error(error);
+   next(error); // Pass the error to the error handling middleware
+ }
  });
 
 /* GET home page. */
 router.get('/add', async function(req, res, next) {
+  
+  console.log(req.user.doctorId)
+  const doctorId =req.user.doctorId
   const slots = await Slot.find();
   res.render("addslots", {
     title: "ADD slots",
     token:`${slots.length+1}`,
-    doctorId: "doc-001",
+    doctorId: doctorId,
     status: "available",
-    _id:`${slots.length+1}`,
+    _id:`slot00-${slots.length+1}`,
   });
 });
 router.post('/save', async function(req, res, next) {

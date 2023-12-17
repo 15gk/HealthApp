@@ -8,7 +8,7 @@
 <body>
   <form action="/slots/save" method="post">
     <label for="date">Date:</label>
-    <input type="date" id="date" name="date" required value="<%req.body.date.split('T')[0]%>"><br>
+    <input type="date" id="date" name="date" required ><br>
     <!-- <label for="token">Tokens: </label>
     <input id="token" type="number" required> -->
      
@@ -21,7 +21,7 @@
     <input type="hidden" id="token" name="token" value="<%=token%>">
     <input type="hidden" id="doctorId" name="doctorId" value="<%=doctorId%>">
     <input type="hidden" id="status" name="status" value="available">
-    <!-- <input type="hidden" id="_id" name="_id" value="<%=_id%>"> -->
+    <input type="hidden" id="_id" name="_id" value="<%=_id%>">
     <!-- <label for="minuteIncrements">Length of one appointment</label><br>
     <select id="minuteIncrements" name="minuteIncrements">
       <option value="15">15 minutes</option>

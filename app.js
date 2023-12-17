@@ -37,7 +37,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
     secret: "your secret key",
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     store: new MongoStore({ mongoUrl: "mongodb://127.0.0.1/healthApp" }),
   })
@@ -83,21 +83,43 @@ app.get("/register", function (req, res) {
   res.render("signup");
 });
 //for authentication
-app.post("/register", function (req, res) {
-  const newUser = new User({
-    email: req.body.email,
-    username: req.body.username,
-  });
+app.post("/register", async function (req, res) {
+  try {
+    const users = await User.find();
 
-  User.register(newUser, req.body.password, function (err, user) {
-    if (err) {
-      res.status(400).json({ error: err.message });
-      res.render("/error");
-    } else {
-      // res.status(200).json({ message: "Registration successful", user });
-      res.render("/login")
+    let newUser;
+    const userId = generateUserId(req.body.role, users.length + 1);
+    if (req.body.role === "doctor") {
+      const doctorId = `doc00-${users.length + 1}`;
+      newUser = new User({
+        email: req.body.email,
+        username: req.body.username,
+        role: req.body.role,
+        citizenshipNumber: req.body.citizenshipNumber,
+        phoneNumber: req.body.phoneNumber,
+        doctorId: doctorId,
+        userId:userId,
+      });
+    } else if (req.body.role === "patient") {
+      const patientId = `pat00-${users.length + 1}`;
+      newUser = new User({
+        email: req.body.email,
+        username: req.body.username,
+        role: req.body.role,
+        citizenshipNumber: req.body.citizenshipNumber,
+        phoneNumber: req.body.phoneNumber,
+        patientId: patientId,
+        userId:userId
+      });
     }
-  });
+
+    // Register the new user
+   User.register(newUser, req.body.password);
+    res.redirect("/login");
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+    // You might want to handle errors more gracefully here
+  }
 });
 
 /*
@@ -109,23 +131,34 @@ app.get("/login", function (req, res) {
   res.render("login");
 });
 
-app.post('/login', passport.authenticate('local', { 
-  failureRedirect: '/error', 
-  successRedirect: '/home'
-}), (err, req, res, next) => {
-  if (err) next(err);
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/error",
+  }),
+  (req, res) => {
+    console.log(req.session);
+    // Check the user's role and redirect accordingly
+    if (req.user.role === "doctor") {
+     
+      res.redirect("/slots");
+    } else if (req.user.role === "patient") {
+      res.redirect("/home");
+    } else {
+      // Handle other roles or scenarios
+      res.redirect("/error");
+    }
+  }
+);
+app.get("/logout", function (req, res, next) {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+  
+  });
+    res.redirect("/");
 });
-
-// app.get('/login-failure', (req, res, next) => {
-//   console.log(req.session);
-//   res.send('Login Attempt Failed.');
-//   res.render("/error");
-// });
-
-// app.get('/login-success', (req, res, next) => {
-//   res.render("/home")
-// });
-
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -147,6 +180,9 @@ app.get('/profile', function(req, res) {
     res.json({ message: 'You are not authenticated' })
   }
 })
+function generateUserId(role, count) {
+  return `${role.substr(0, 3).toLowerCase()}00-${count}`;
+}
 
 
 // error handler

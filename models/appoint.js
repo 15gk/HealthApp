@@ -38,11 +38,15 @@ const AppointSchema = new Schema({
   },
   startTime: {
     type: String,
-    required:false,
+    required: false,
   },
   endTime: {
     type: String,
-    required:false,
+    required: false,
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user", // Reference to UserModel
   },
 });
 

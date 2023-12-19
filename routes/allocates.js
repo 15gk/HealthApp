@@ -115,10 +115,18 @@ router.get("/delete/:userId", async function (req, res, next) {
       // Slot not found
       return res.redirect("/appointdetails"); // Redirect to the same page or handle as needed
     }
+
+      await Slot.findOneAndUpdate(
+         { _id: AppointToDelete[0].slot_id },
+         { $set: { status: "available" } }
+       );
     
      
     await Appoint.findOneAndDelete({ userId: req.params.userId });
-   
+
+   ///change the status of slot/////
+  
+
     // Fetch the updated slot list
     const appoint = await Appoint.find({userId:req.user.userId });
 
@@ -133,6 +141,7 @@ router.get("/delete/:userId", async function (req, res, next) {
     // Handle any errors that may occur during the process
     console.error("Error deleting slot:", error);
     res.status(500).send("Internal Server Error");
+    // res.redirect("/login")
   }
 });
 module.exports = router;

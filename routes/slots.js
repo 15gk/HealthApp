@@ -9,7 +9,7 @@ router.get("/", async function (req, res, next) {
     // If not logged in, redirect to the register page
     return res.redirect("/register"); 
   }
-
+    
   // console.log(req.user);
   // console.log(req.user.username);
   const doctorId = req.user.doctorId;

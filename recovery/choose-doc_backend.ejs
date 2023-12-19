@@ -1,5 +1,5 @@
 view-slots.ejs
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,8 +11,8 @@ view-slots.ejs
     <form action="/allocates/personalInfo" method="post">
         <label for="timeSlot">Select Time Slot:</label>
         <select name="timeSlot" id="timeSlot" required>
-            <!-- Render available time slots of the selected doctor dynamically -->
-            <!-- <% for (const slot of slots) { %>
+            Render available time slots of the selected doctor dynamically -->
+        <% for (const slot of slots) { %>
                 <option value="<%= slot._id %>"><%= slot.startTime %> - <%= slot.endTime %></option>
             <% } %>
         </select>
@@ -21,4 +21,4 @@ view-slots.ejs
         <button type="submit">Next</button>
     </form>
 </body>
-</html> --> -->
+</html>

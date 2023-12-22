@@ -1,50 +1,43 @@
-<!-- views/appoint.ejs -->
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <%= title %>
-    </title>
-    <!-- Add your stylesheets or any other head elements here -->
+    <title><%= title %></title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
-<body>
+<body class="bg-light">
 
-    <h1>
-        <%= title %>
-    </h1>
+    <div class="container mt-5">
+        <h1><%= title %></h1>
 
-    <% if (appointList.length> 0) { %>
-        <ul>
-            <% appointList.forEach(appoint=> { %>
-                <li>
-                    <strong>Appointment ID:</strong>
-                    <%= appoint.appoint_id %> <br>
-                                        <strong>Doctor ID:</strong>
-                                        <%= appoint.doctorId %> <br>
-                                            <strong>Start Time:</strong>
-                                            <%= appoint.startTime %> <br>
-                                                <strong>End Time:</strong>
-                                                <%= appoint.endTime %> <br>
-                                                    <strong>User ID:</strong>
-                                                    <%= appoint.userId %> <br>
-                                                    <strong>Status:</strong>
-                                                    <%= appoint.status %> <br>
-                                                    <strong>Date:</strong>
-                                                    <%= appoint.date %> <br>
-                                                        <!-- Add more appointment details as needed -->
-                </li>
+        <% if (appointList.length > 0) { %>
+            <ul class="list-unstyled">
+                <% appointList.forEach(appoint => { %>
+                    <li class="bg-white p-3 mb-3 rounded shadow">
+                        <strong>Appointment ID:</strong> <%= appoint.appoint_id %> <br>
+                        <strong>Doctor ID:</strong> <%= appoint.doctorId %> <br>
+                        <strong>Start Time:</strong> <%= appoint.startTime %> <br>
+                        <strong>End Time:</strong> <%= appoint.endTime %> <br>
+                        <strong>User ID:</strong> <%= appoint.userId %> <br>
+                        <strong>Status:</strong> <%= appoint.status %> <br>
+                        <strong>Date:</strong> <%= appoint.date %> <br>
+                       
+                    </li>
                 <% }); %>
-        </ul>
+            </ul>
         <% } else { %>
             <p>No appointments found.</p>
-            <% } %>
+        <% } %>
+    </div>
 
-                <!-- Add your scripts or any other body elements here -->
+   
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 

@@ -10,7 +10,13 @@ var Slot = require("../models/slots");
 
     //choose speciality
 router.get('/choose-speciality', function (req, res, next) {
+    if (!req.user) {
+      // If not logged in, redirect to the register page
+      return res.redirect("/register");
+    }
+    
     const specialties = new Set();
+
     doctors.forEach(doctor => specialties.add(doctor.speciality));
     res.render('speciality', { title: 'Choose Speciality', specialities:Array.from(specialties) });
 });

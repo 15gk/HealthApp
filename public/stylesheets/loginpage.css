@@ -3,6 +3,8 @@ body {
     background-color: #f4f4f4;
     margin: 0;
     padding: 0;
+    background-image: url('../images/homeBackground12.png');
+    background-size: cover;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,7 +23,7 @@ label {
     margin-bottom: 8px;
 }
 
-input {
+input ,select{
     width: 100%;
     padding: 8px;
     margin-bottom: 16px;

@@ -3,14 +3,13 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const Schema = mongoose.Schema;
 
 const UserSchema = new Schema(
-  
-  { 
+  {
     userId: {
       type: String,
       unique: true,
       required: true,
     },
-    
+
     username: {
       type: String,
       required: true,
@@ -36,10 +35,10 @@ const UserSchema = new Schema(
       type: String,
     },
     doctorId: {
-      type:String
+      type: String,
     },
     patientId: {
-      type: String
+      type: String,
     },
   },
   {

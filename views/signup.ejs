@@ -35,51 +35,42 @@
 </html> -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <title>Signup</title>
   <link rel="stylesheet" href="/stylesheets/loginpage.css" />
 </head>
+
 <body>
-  <form id="signupForm" action="/register" method="POST">
-    <h2>Sign Up</h2>
-    <label for="username">Name:</label>
-    <input type="text" id="name" name="username" required>
   
-    <label for="emailSignUp">Email:</label>
-    <input type="email" id="emailSignUp" name="email" required>
-  
-    <label for="citizenshipNumber">Citizenship Number:</label>
-    <input type="text" id="citizenshipNumber" name="citizenshipNumber" required>
-<!--   
+  <form id="loginForm" action="/register" method="POST">
+    <h2>Signup</h2>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
     <label for="role">Role:</label>
-    <input type="text" id="role" name="role" required>
-   -->
-    <label for="role">Role:</label>
-    <!-- <select > -->
-  <select id="role" name="role" class="form-select form-select-sm" aria-label="Small select example">
+    <select id="role" name="role" required>
       <option value="patient">Patient</option>
       <option value="doctor">Doctor</option>
       <option value="admin">Admin</option>
     </select>
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
 
-    <label for="passwordSignUp">Password:</label>
-    <input type="password" id="passwordSignUp" name="password" required>
-  
-    <button type="submit">Sign Up</button>
-    <p>Already have an account? <a href="/login">Login
-        here</a></p>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="phone">Phone Number:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber" required>
+
+    <label for="citizenshipNo">Citizenship No:</label>
+    <input type="text" id="citizenshipNumber" name="citizenshipNumber" required>
+     
+    <button type="submit">Signup</button>
+    <p>Already have a account ? <a href="/login">Login</a></p>
   </form>
 </body>
-</html>
 
-<!-- onclick="document.getElementById('loginForm').style.display='block';
-document.getElementById('signupForm').style.display='none'; -->
+</html>

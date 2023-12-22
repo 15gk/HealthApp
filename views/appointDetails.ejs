@@ -2,55 +2,87 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-       
-        .custom-lavender-btn {
-            background-color: rgb(154, 154, 211);
-            color: #333;
-            border: 1px solid #adadde; 
-        }
-
-        .custom-lavender-btn:hover {
-            background-color: #7373c3; 
-            border: 1px solid #8a8abf;
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Online Ticketing</title>
+    <link rel="stylesheet" href="/stylesheets/style12.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
 </head>
 
 <body class="bg-light">
-
-    <div class="container mt-5">
-        <h1 class="mb-4"><%= title %></h1>
-
-        <% if (appointList.length > 0) { %>
-            <ul class="list-unstyled">
-                <% appointList.forEach(appoint => { %>
-                    <li class="bg-white p-3 mb-3 rounded shadow">
-                       
-                        <form action="/allocates/appointstatus" method="GET">
-                            <input type="hidden" name="date" value="<%= appoint.date %>">
-                            <input type="hidden" name="doctorId" value="<%= appoint.doctorId %>">
-                            <button type="submit" class="btn btn-primary mt-3 custom-lavender-btn">Check Status</button>
-                        </form>
-                       
-                    </li>
-                <% }); %>
+    <div class="main-container">
+        <div class="header-grid navigation">
+            <img src="/images/logo12.png" alt="Logo" class="logo" />
+            <ul>
+                <li><a href="/home"><strong>Home</strong></a></li>
+                <li><a href="/allocates/choose-speciality">Appointment</a></li>
+                <li><a href="/allocates/appointdetails">Appoint Details</a></li>
+                <li><a href="#">Report</a></li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="/logout">Logout</a></li>
             </ul>
+        </div>
+    <div class="container mt-5">
+        <h1 class="mb-4"> <%= title %></h1
+
+        <% if (appointList.length> 0) { %>
+          <ul style="list-style-type: none;">
+            <% appointList.forEach(appoint=> { %>
+              <li class="bg-white p-3 mb-3  shadow" style="list-style-type: none;">
+                 <!-- <strong >Appointment ID:</strong>
+                     <%= appoint.appoint_id %> <br> -->
+                      <strong>Patient Name:</strong>
+                        <%= appoint.patientName %> <br>
+                            <!-- <strong>Age:</strong>
+                            <%= appoint.age %> <br> -->
+                                <!-- <strong>Gender:</strong>
+                                <%= appoint.gender %> <br> -->
+                                    <!-- <strong>Email:</strong>
+                                    <%= appoint.email %> <br> -->
+                                        <!-- <strong>Phone:</strong>
+                                        <%= appoint.phone %> <br>
+                                            <strong>Address:</strong>
+                                            <%= appoint.address %> <br> -->
+                                        <strong>Doctor ID:</strong>
+                                        <%= appoint.doctorId %> <br>
+                                            <strong>Date:</strong>
+                                            <%= appoint.date %> <br>
+                                                <strong>Start Time:</strong>
+                                                <%= appoint.startTime %> <br>
+                                                    <strong>End Time:</strong>
+                                                    <%= appoint.endTime %> <br>
+                                                        <!-- <strong>User ID:</strong>
+                                                        <%= appoint.userId %> <br> -->
+                                                            <strong>Status:</strong>
+                                                            <%= appoint.status%> <br>
+                                                                <form action="/allocates/appointstatus" method="GET">
+                                                                    <input type="hidden" name="date"
+                                                                        value="<%= appoint.date %>">
+                                                                    <input type="hidden" name="doctorId"
+                                                                        value="<%= appoint.doctorId %>">
+                                                                    <button type="submit"class="btn btn-outline-info mb-1 mt-2" >Check Status</button> <br>
+                                                                </form>
+                                                                <form action="/allocates/delete/<%= appoint.userId %>"
+                                                                    method="GET">
+                                                                    <input type="hidden" name="slot_id"
+                                                                        value="<%= appoint.slot_id %>">
+                                                                    <input type="hidden" name="appoint_id"
+                                                                        value="<%= appoint.appoint_id %>">
+                                                                    <button type="submit" class="btn btn-outline-danger">Cancel the
+                                                                        Appointment</button>
+                                                                </form>
+
+
+                                                                <!-- Add more appointment details as needed -->
+                </li>
+                <% }); %>
+        </ul>
         <% } else { %>
             <p>No appointments found.</p>
-        <% } %>
+            <% } %>
     </div>
-
-  
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
+    </div>
 </body>
 
 </html>

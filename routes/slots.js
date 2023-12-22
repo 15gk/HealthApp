@@ -1,15 +1,15 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 // var slots=require('../resources/slots')
-var Slot=require('../models/slots')
+var Slot = require("../models/slots");
 
 router.get("/", async function (req, res, next) {
   // Check if the user is logged in
   if (!req.user) {
     // If not logged in, redirect to the register page
-    return res.redirect("/register"); 
+    return res.redirect("/register");
   }
-    
+
   // console.log(req.user);
   // console.log(req.user.username);
   const doctorId = req.user.doctorId;
@@ -29,13 +29,12 @@ router.get("/", async function (req, res, next) {
   }
 });
 
-
 /* GET home page. */
-router.get('/add', async function(req, res, next) {
+router.get("/add", async function (req, res, next) {
   // Check if the user is logged in
   if (!req.user) {
     // If not logged in, redirect to the register page
-    return res.redirect('/register'); // Assuming '/register' is the register page route
+    return res.redirect("/register"); // Assuming '/register' is the register page route
   }
 
   console.log(req.user.doctorId);
@@ -51,22 +50,21 @@ router.get('/add', async function(req, res, next) {
   });
 });
 
-router.post('/save', async function(req, res, next) {
-  await Slot.insertMany([req.body])
-    res.redirect('/slots')
-  });
+router.post("/save", async function (req, res, next) {
+  await Slot.insertMany([req.body]);
+  res.redirect("/slots");
+});
 
-  router.get('/edit/:_id', function(req, res, next){
-    const slot = slots.find((slot)=>slot._id === req.params._id)
-    res.render('editslots', {title: "Edit slots", slot})
-  })
-  router.post('/saveEdited/:_id', function(req, res, next){
-    const currIndex = slots.findIndex((slot)=>slot._id === req.params._id)
-    // alert ("currIndex")
-    slots.splice(currIndex, 1, {...req.body, _id:req.params._id})
-    res.redirect('/')
-  })
-
+router.get("/edit/:_id", function (req, res, next) {
+  const slot = slots.find((slot) => slot._id === req.params._id);
+  res.render("editslots", { title: "Edit slots", slot });
+});
+router.post("/saveEdited/:_id", function (req, res, next) {
+  const currIndex = slots.findIndex((slot) => slot._id === req.params._id);
+  // alert ("currIndex")
+  slots.splice(currIndex, 1, { ...req.body, _id: req.params._id });
+  res.redirect("/");
+});
 
 router.get("/delete/:_id", async function (req, res, next) {
   console.log(req.params._id);
